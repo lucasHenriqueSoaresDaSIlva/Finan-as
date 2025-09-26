@@ -1,0 +1,960 @@
+/*
+  ==============================================================
+  🚀 REFORMULAÇÃO CSS - Projeto de Alta Importância 🚀
+  ==============================================================
+  Objetivo: Otimizar para performance, escalabilidade, manutenibilidade
+  e aprimorar a experiência visual, mantendo a clareza e a robustez.
+*/
+
+/*
+  ========================================
+  0. RESET & VARIÁVEIS CSS
+  ========================================
+  Mantido e aprimorado. Variáveis centrais para branding e consistência.
+*/
+:root {
+    /* Cores Primárias e Secundárias (Branding) */
+    --primary-color: #180063;        /* Roxo principal forte */
+    --secondary-color: #2b005a;       /* Roxo secundário mais profundo */
+    --primary-gradient: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --footer-gradient: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+
+    /* Cores de Destaque / Ação (Acentuação) */
+    --accent-blue: #00d5ff;           /* Azul vibrante para hover/destaque */
+    --accent-green: #13c193;          /* Verde para sucesso/receita */
+    --accent-red: #b9005d;            /* Vermelho para despesa/erro */
+    --total-alert-red: #e00;          /* Vermelho forte para o total (mantido) */
+
+    /* Cores de Texto */
+    --text-light: #fff;               /* Para fundos escuros */
+    --text-dark: #222;                /* Para fundos claros (principal) */
+    --text-muted: #666;               /* Para informações secundárias */
+
+    /* Cores de Fundo */
+    --bg-light: #f7f7fa;              /* Fundo de seções claras */
+    --bg-card: #fff;                  /* Fundo de cards/componentes */
+
+    /* Bordas e Sombras */
+    --border-color: #eee;
+    --shadow-light: rgba(0, 0, 0, 0.07);
+    --shadow-medium: rgba(0, 0, 0, 0.09);
+    --shadow-strong: rgba(0, 0, 0, 0.15); /* Nova sombra mais forte para hover */
+
+    /* Raio das Bordas */
+    --radius-small: 7px;
+    --radius-medium: 10px;
+    --radius-large: 50px;
+    --radius-pill: 9999px; /* Adicionado para botões tipo "pill" */
+
+    /* Espaçamento (Padronização com 'rem' para escalabilidade) */
+    --spacing-xs: 0.3rem;   /* 5px */
+    --spacing-sm: 0.6rem;   /* 10px */
+    --spacing-md: 1rem;     /* 15px */
+    --spacing-lg: 1.3rem;   /* 20px */
+    --spacing-xl: 2rem;     /* 30px */
+    --spacing-xxl: 3rem;    /* Novo espaçamento maior */
+
+    /* Tipografia */
+    --font-family-primary: 'Montserrat', Arial, sans-serif;
+    --font-size-body: 16px; /* Tamanho base da fonte para 'rem' */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* Transições Padrão */
+    --transition-ease: all 0.3s ease-in-out;
+    --transition-fast: all 0.2s ease-out;
+}
+
+/* Base de tipografia para 'rem' */
+html {
+    font-size: var(--font-size-body); /* 1rem = 16px */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    background: var(--primary-gradient);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6; /* Melhoria de legibilidade */
+    -webkit-font-smoothing: antialiased; /* Suaviza fontes em Webkit */
+    -moz-osx-font-smoothing: grayscale; /* Suaviza fontes em Firefox */
+}
+
+/*
+  ========================================
+  1. LAYOUT GERAL & COMPONENTES BASE
+  ========================================
+  Centraliza o conteúdo principal, adicionando um container para estrutura.
+*/
+.container {
+    max-width: 1200px; /* Largura máxima para conteúdo central */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg); /* Padding para respiro nas laterais */
+    width: 100%;
+}
+
+/*
+  ========================================
+  2. HEADER
+  ========================================
+*/
+.header {
+    width: 100%;
+    background: transparent;
+    text-align: center;
+    padding: var(--spacing-xl) 0 var(--spacing-sm) 0;
+}
+
+.logo {
+    width: 125px;
+    height: 150px;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4)); /* Brilho levemente mais intenso */
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xxl); /* Usando variável, espaçamento maior */
+    background: transparent;
+    font-size: 1.1rem; /* Usando rem */
+    margin-bottom: var(--spacing-xxl); /* Usando variável */
+}
+
+.menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    padding: var(--spacing-sm) 0;
+    position: relative;
+    transition: var(--transition-ease); /* Usando variável de transição */
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    left: 50%; /* Centraliza o sublinhado */
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-blue);
+    transition: width 0.3s ease-out, left 0.3s ease-out; /* Anima a posição também */
+}
+
+.menu a:hover {
+    color: var(--accent-blue);
+}
+
+.menu a:hover::after,
+.menu a.active::after {
+    width: 100%;
+    left: 0; /* Move para a esquerda ao expandir */
+}
+
+/*
+  ========================================
+  3. CARDS DE RESUMO
+  ========================================
+*/
+.cards-section {
+    flex-grow: 1; /* Permite que a seção cresça e empurre o footer */
+    padding: var(--spacing-lg) 0; /* Adicionado padding vertical para a seção */
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xl);
+    justify-content: center;
+    margin-bottom: var(--spacing-xxl); /* Espaçamento maior */
+    margin-top: var(--spacing-sm);
+    padding: 0 var(--spacing-lg);
+}
+
+.card {
+    background: var(--bg-card);
+    box-shadow: 0 4px 18px var(--shadow-light); /* Sombra ligeiramente mais pronunciada */
+    border-radius: var(--radius-medium);
+    padding: var(--spacing-xl) var(--spacing-lg); /* Padding simétrico */
+    min-width: 280px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-fast); /* Usando variável de transição */
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card:hover {
+    transform: translateY(-7px); /* Elevação mais notável no hover */
+    box-shadow: 0 10px 25px var(--shadow-medium); /* Sombra mais intensa no hover */
+}
+
+.card.income { border-top: 6px solid var(--accent-green); }
+.card.expense { border-top: 6px solid var(--accent-red); }
+.card.total {
+    border-top: 6px solid var(--total-alert-red);
+    background: var(--total-alert-red);
+    color: var(--text-light);
+    transform: scale(1.03) translateY(-7px); /* Destaque mais forte e elevação */
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.25); /* Sombra mais dramática */
+}
+.card.total:hover {
+    transform: scale(1.05) translateY(-10px); /* Ainda mais destaque no hover */
+    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.35);
+}
+.card.total .card-header svg {
+    color: var(--text-light);
+}
+
+.card-header {
+    font-size: 1.1rem; /* Usando rem */
+    font-weight: var(--font-weight-semibold);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-muted);
+}
+
+.card-header svg {
+    font-size: 1.6rem; /* Ícone um pouco maior */
+    color: var(--primary-color);
+}
+
+.card-value {
+    font-size: 2.2rem; /* Aumentado um pouco mais */
+    font-weight: var(--font-weight-extrabold);
+    margin-top: var(--spacing-sm);
+    color: var(--text-dark);
+}
+.card.total .card-value {
+    color: var(--text-light);
+}
+
+/*
+  ========================================
+  4. BOTÃO DE ADICIONAR TRANSAÇÃO
+  ========================================
+*/
+.add-transaction-btn {
+    background: var(--accent-green);
+    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-pill); /* Botão mais arredondado (pill) */
+    border: none;
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    margin: var(--spacing-xl) auto var(--spacing-md) auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-ease);
+    box-shadow: 0 4px 10px rgba(19, 193, 147, 0.4);
+}
+
+.add-transaction-btn:hover {
+    background: #10a87f; /* Tom ligeiramente mais escuro no hover */
+    transform: translateY(-3px); /* Elevação mais notável */
+    box-shadow: 0 6px 15px rgba(19, 193, 147, 0.55);
+}
+
+.add-transaction-btn i {
+    margin-right: var(--spacing-xs);
+    font-size: 1.3rem; /* Ícone um pouco maior */
+}
+
+/*
+  ========================================
+  5. TABELA DE TRANSAÇÕES
+  ========================================
+*/
+.transactions-table-wrapper { /* Novo wrapper para a tabela para overflow em mobile */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: var(--spacing-md) auto var(--spacing-xl) auto; /* Ajusta a margem do wrapper */
+    max-width: 100%; /* Garante que o wrapper não transborde */
+}
+
+.transactions-table {
+    width: 100%; /* A tabela ocupa 100% do seu wrapper */
+    max-width: 1200px; /* Mantido, mas aplicado dentro do wrapper */
+    /* Removido margin auto daqui para ser controlado pelo wrapper */
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    background: var(--bg-card);
+    border-radius: var(--radius-medium);
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    min-width: 600px; /* Garante que a tabela não fique espremida em mobile */
+}
+
+.transactions-table thead tr {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.8px; /* Ligeiramente mais espaçado */
+}
+
+.transactions-table th,
+.transactions-table td {
+    padding: var(--spacing-md) var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.transactions-table th:first-child { border-top-left-radius: var(--radius-medium); }
+.transactions-table th:last-child { border-top-right-radius: var(--radius-medium); }
+
+.transactions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.transactions-table td.value.positive { color: var(--accent-green); font-weight: var(--font-weight-bold); }
+.transactions-table td.value.negative { color: var(--accent-red); font-weight: var(--font-weight-bold); }
+
+.transactions-table td.action { text-align: center; }
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: var(--accent-red);
+    font-size: 1.5rem; /* Aumentado para melhor toque em mobile */
+    cursor: pointer;
+    opacity: 0.8;
+    transition: var(--transition-fast);
+    line-height: 1; /* Para alinhar melhor o ícone */
+}
+
+.remove-btn:hover {
+    color: var(--total-alert-red); /* Vermelho mais intenso */
+    opacity: 1;
+    transform: scale(1.15); /* Animação mais perceptível */
+}
+
+/*
+  ========================================
+  6. FORMULÁRIO INLINE
+  ========================================
+*/
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-xxl); /* Espaçamento maior */
+    padding: 0 var(--spacing-lg);
+}
+
+.form-inline input,
+.form-inline select,
+.form-inline button { /* Incluído botão para estilo consistente */
+    flex: 1;
+    min-width: 180px; /* Ligeiramente maior para melhor usabilidade */
+    padding: var(--spacing-md); /* Padding mais uniforme */
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.form-inline input:focus,
+.form-inline select:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 213, 255, 0.25); /* Sombra mais definida */
+    outline: none;
+}
+
+/* Estilo para o botão dentro do form-inline */
+.form-inline button {
+    background: var(--primary-color);
+    color: var(--text-light);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(24, 0, 99, 0.3);
+}
+
+.form-inline button:hover {
+    background: #11004a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(24, 0, 99, 0.4);
+}
+
+
+/*
+  ========================================
+  7. SIMULADOR
+  ========================================
+*/
+.simulator-section {
+    padding: var(--spacing-xl) 0; /* Padding vertical para a seção do simulador */
+}
+
+.simulator-container {
+    background: var(--bg-card);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px var(--shadow-medium); /* Sombra mais notável */
+    padding: var(--spacing-xxl) var(--spacing-xl); /* Mais padding interno */
+    max-width: 750px; /* Aumentado ligeiramente */
+    margin: var(--spacing-xl) auto var(--spacing-xl) auto;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.simulator-container h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 2.3rem; /* Título maior e mais impactante */
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    margin-bottom: var(--spacing-xxl); /* Mais espaçamento */
+    position: relative;
+    padding-bottom: var(--spacing-md); /* Espaço para a linha decorativa */
+}
+
+.simulator-container h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0; /* Alinhado ao padding-bottom */
+    transform: translateX(-50%);
+    width: 70px; /* Ligeiramente mais largo */
+    height: 4px; /* Ligeiramente mais grosso */
+    background-color: var(--accent-blue);
+    border-radius: var(--radius-small);
+}
+
+.simulator-form label {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-xs);
+    display: block;
+    font-size: 0.95rem; /* Usando rem */
+}
+
+.simulator-form input:not([type="range"]),
+.simulator-form select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-small);
+    border: 1px solid #ccc;
+    transition: var(--transition-fast);
+}
+
+.simulator-form input:not([type="range"]):focus,
+.simulator-form select:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 213, 255, 0.25);
+    outline: none;
+}
+
+.simulator-form .slider-label {
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--font-weight-semibold);
+}
+.slider-label span {
+    font-weight: var(--font-weight-regular);
+    color: var(--text-muted);
+}
+
+.simulator-form input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px; /* Ligeiramente mais grosso */
+    background: #e0e0e0; /* Cor de fundo mais clara */
+    outline: none;
+    border-radius: var(--radius-pill); /* Mais arredondado */
+    opacity: 0.8;
+    transition: opacity .2s;
+    margin-bottom: var(--spacing-md);
+}
+
+.simulator-form input[type="range"]:hover {
+    opacity: 1;
+}
+
+.simulator-form input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; /* Ligeiramente maior */
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: grab;
+    box-shadow: 0 0 0 4px rgba(24, 0, 99, 0.25); /* Sombra mais pronunciada */
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.simulator-form input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    background: var(--accent-blue);
+    box-shadow: 0 0 0 5px rgba(0, 213, 255, 0.35);
+}
+
+.simulator-form input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: grab;
+    box-shadow: 0 0 0 4px rgba(24, 0, 99, 0.25);
+    transition: background 0.2s, box-shadow 0.2s;
+    border: none;
+}
+.simulator-form input[type="range"]::-moz-range-thumb:active {
+    cursor: grabbing;
+    background: var(--accent-blue);
+    box-shadow: 0 0 0 5px rgba(0, 213, 255, 0.35);
+}
+
+
+.simulator-form button {
+    width: 100%;
+    background: var(--primary-color);
+    color: var(--text-light);
+    font-weight: var(--font-weight-bold);
+    border: none;
+    border-radius: var(--radius-small);
+    padding: var(--spacing-md) var(--spacing-lg); /* Padding ajustado */
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: var(--spacing-lg); /* Mais espaçamento */
+    transition: var(--transition-ease);
+    box-shadow: 0 5px 12px rgba(24, 0, 99, 0.35); /* Sombra mais forte */
+}
+
+.simulator-form button:hover {
+    background: #11004a;
+    transform: translateY(-3px); /* Elevação mais notável */
+    box-shadow: 0 8px 18px rgba(24, 0, 99, 0.45);
+}
+
+.simulation-result {
+    margin-top: var(--spacing-xxl); /* Mais espaçamento */
+    background: var(--bg-light);
+    border-radius: var(--radius-small);
+    padding: var(--spacing-xl); /* Mais padding interno */
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px var(--shadow-light); /* Sombra um pouco mais forte */
+}
+
+.simulation-result h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.7rem; /* Tamanho ajustado */
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.simulation-result .chart-container {
+    margin-top: var(--spacing-xl);
+    background: var(--bg-card);
+    padding: var(--spacing-lg); /* Mais padding */
+    border-radius: var(--radius-small);
+    box-shadow: 0 3px 10px var(--shadow-light); /* Sombra ligeiramente mais forte */
+}
+
+/*
+  ========================================
+  8. FOOTER
+  ========================================
+*/
+footer {
+    width: 100%;
+    background: var(--footer-gradient); /* Usando variável */
+    color: var(--text-light);
+    text-align: center;
+    padding: var(--spacing-lg) 0 var(--spacing-sm) 0;
+    margin-top: auto;
+    box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.25); /* Sombra superior mais forte */
+}
+
+footer .footer-icons {
+    margin: var(--spacing-sm) 0 var(--spacing-xs) 0;
+}
+
+footer .footer-icons i {
+    margin: 0 var(--spacing-sm);
+    font-size: 1.4rem; /* Ícones maiores */
+    color: var(--text-light);
+    opacity: 0.85; /* Ligeiramente menos transparente */
+    transition: var(--transition-fast);
+}
+
+footer .footer-icons i:hover {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.2); /* Efeito de pulo e zoom mais pronunciado */
+    color: var(--accent-blue);
+}
+
+/*
+  ========================================
+  9. RESPONSIVIDADE (Otimizada e Refinada)
+  ========================================
+*/
+@media (max-width: 992px) {
+    .menu {
+        gap: var(--spacing-xl); /* Ajuste de gap */
+        font-size: 1rem;
+        margin-bottom: var(--spacing-xl);
+    }
+    .cards-container {
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
+    }
+    .transactions-table {
+        min-width: 550px; /* Reduz o min-width para mais flexibilidade */
+    }
+    .transactions-table th, .transactions-table td {
+        padding: var(--spacing-sm);
+    }
+    .simulator-container {
+        padding: var(--spacing-xl) var(--spacing-lg);
+        margin: var(--spacing-lg) auto;
+    }
+    .simulator-container h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 15px; /* Reduz a fonte base para mobile */
+    }
+    .header {
+        padding: var(--spacing-lg) 0 var(--spacing-xs) 0;
+    }
+    .logo {
+        width: 65px;
+    }
+    .menu {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    .menu a {
+        padding: var(--spacing-xs) 0;
+    }
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+        padding: 0 var(--spacing-sm);
+    }
+    .card {
+        width: 95%; /* Ocupa mais largura */
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    .add-transaction-btn {
+        width: 95%;
+        margin: var(--spacing-lg) auto var(--spacing-md) auto;
+    }
+    /* Tabela responsiva aprimorada (Stacking) */
+    .transactions-table-wrapper {
+        margin: var(--spacing-md) var(--spacing-sm); /* Ajusta margem para o wrapper */
+        padding-bottom: var(--spacing-md); /* Espaço para scrollbar se necessário */
+    }
+    .transactions-table {
+        min-width: unset; /* Remove min-width quando empilhado */
+        display: block; /* Para que o overflow-x funcione no wrapper */
+    }
+    .transactions-table thead, .transactions-table tbody, .transactions-table th, .transactions-table td, .transactions-table tr {
+        display: block;
+    }
+    .transactions-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    .transactions-table tr {
+        margin-bottom: var(--spacing-md); /* Mais espaçamento entre as linhas empilhadas */
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-medium);
+        box-shadow: 0 2px 10px var(--shadow-light);
+        padding: var(--spacing-sm); /* Padding interno para cada "linha-card" */
+    }
+    .transactions-table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        display: flex; /* Para alinhar label e valor */
+        justify-content: space-between;
+        align-items: center;
+    }
+    .transactions-table td::before {
+        content: attr(data-label);
+        position: static; /* Não mais absoluto, mas parte do flex */
+        width: 45%;
+        padding-right: var(--spacing-sm);
+        white-space: nowrap;
+        text-align: left;
+        font-weight: var(--font-weight-bold);
+        color: var(--text-muted);
+    }
+    .transactions-table td.action {
+        text-align: center;
+        padding-left: 0;
+        justify-content: center; /* Centraliza o botão de ação */
+        margin-top: var(--spacing-sm); /* Espaçamento acima do botão */
+        border-top: 1px dashed var(--border-color); /* Separador visual */
+        padding-top: var(--spacing-sm);
+    }
+
+    .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 var(--spacing-sm);
+    }
+    .form-inline input, .form-inline select, .form-inline button {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .simulator-container {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin: var(--spacing-lg) var(--spacing-sm);
+    }
+    .simulator-container h2 {
+        font-size: 1.9rem;
+        margin-bottom: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 14px; /* Mais uma redução para telas muito pequenas */
+    }
+    .menu {
+        font-size: 0.9rem;
+    }
+    .card-value {
+        font-size: 2rem;
+    }
+    .simulator-container h2 {
+        font-size: 1.6rem;
+    }
+    .transactions-table td {
+        padding-left: 55%; /* Mais espaço para o label */
+    }
+    .transactions-table td::before {
+        width: 50%;
+    }
+}
+/*
+  ==============================================================
+  🚀 REFORMULAÇÃO CSS - Projeto de Alta Importância 🚀
+  ==============================================================
+  Objetivo: Otimizar para performance, escalabilidade, manutenibilidade
+  e aprimorar a experiência visual, mantendo a clareza e a robustez.
+*/
+
+/*
+  ========================================
+  0. RESET & VARIÁVEIS CSS
+  ========================================
+  Mantido e aprimorado. Variáveis centrais para branding e consistência.
+*/
+:root {
+    /* ... suas variáveis ... */
+    /* (mantidas exatamente como você enviou) */
+    --primary-color: #2d2250;
+    --secondary-color: #4b0451;
+    --primary-gradient: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --footer-gradient: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --accent-blue: #64377e;
+    --accent-green: #13c193;
+    --accent-red: #b9005d;
+    --total-alert-red: #e00;
+    --text-light: #fff;
+    --text-dark: #222;
+    --text-muted: #666;
+    --bg-light: #f7f7fa;
+    --bg-card: #fff;
+    --border-color: #eee;
+    --shadow-light: rgba(0, 0, 0, 0.07);
+    --shadow-medium: rgba(0, 0, 0, 0.09);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
+    --radius-small: 7px;
+    --radius-medium: 10px;
+    --radius-large: 50px;
+    --radius-pill: 9999px;
+    --spacing-xs: 0.3rem;
+    --spacing-sm: 0.6rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.3rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    --font-family-primary: 'Montserrat', Arial, sans-serif;
+    --font-size-body: 16px;
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --transition-ease: all 0.3s ease-in-out;
+    --transition-fast: all 0.2s ease-out;
+}
+
+/* Base de tipografia para 'rem' */
+html {
+    font-size: var(--font-size-body);
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: var(--font-family-primary);
+    background: var(--primary-gradient);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+  ========================================
+  2. HEADER (SUBSTITUÍDO E APRIMORADO)
+  ========================================
+*/
+.header {
+    width: 100%;
+    background: var(--primary-gradient);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--spacing-xl) 0 var(--spacing-sm) 0;
+    box-shadow: 0 4px 14px var(--shadow-medium);
+    position: relative;
+    z-index: 10;
+    min-height: 180px;
+    transition: box-shadow 0.2s;
+}
+
+.logo-link {
+    display: inline-block;
+    transition: transform 0.25s;
+}
+.logo-link:hover .logo {
+    transform: scale(1.06) rotate(-2deg);
+    box-shadow: 0 8px 18px rgba(142, 114, 224, 0.18);
+}
+
+.logo {
+    width: 125px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.14));
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    background: transparent;
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+.menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    padding: var(--spacing-sm) var(--spacing-md);
+    position: relative;
+    border-radius: var(--radius-pill);
+    transition: background 0.23s, color 0.23s, box-shadow 0.23s, transform 0.23s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.menu a i {
+    font-size: 1.15em;
+    margin-right: 6px;
+    transition: color 0.23s;
+}
+.menu a:hover, .menu a.active {
+    background: var(--accent-blue);
+    color: var(--primary-color);
+    box-shadow: 0 2px 14px rgba(0,213,255,0.11);
+    transform: translateY(-2px) scale(1.03);
+}
+.menu a:hover i, .menu a.active i {
+    color: var(--accent-green);
+}
+@media (max-width: 768px) {
+    .header {
+        min-height: 110px;
+        padding: var(--spacing-lg) 0 var(--spacing-xs) 0;
+    }
+    .logo {
+        width: 65px;
+        height: 80px;
+    }
+    .menu {
+        gap: var(--spacing-md);
+        font-size: 1rem;
+        margin-bottom: var(--spacing-md);
+        flex-direction: column;
+        align-items: center;
+    }
+    .menu a {
+        width: 100%;
+        justify-content: center;
+        font-size: 1em;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* ... O RESTANTE DO SEU CSS CONTINUA IGUAL ... */
+
+/*
+  ========================================
+  1. LAYOUT GERAL & COMPONENTES BASE
+  ========================================
+  Centraliza o conteúdo principal, adicionando um container para estrutura.
+*/
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
+    width: 100%;
+}
+
+/* ... demais estilos ... */
