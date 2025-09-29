@@ -16,6 +16,7 @@
             <a href="index.php"><i class="fa fa-home"></i> Home</a>
             <a href="despesas.php"><i class="fa fa-credit-card"></i> Despesas</a>
             <a href="financiamento.php"><i class="fa fa-calculator"></i> Simulador Financiamento</a>
+            <a href="investimentos.php"><i class="fa fa-chart-line"></i> Investimentos</a>
             <a href="educacao.php"><i class="fa fa-book"></i> Educação</a>
         </nav>
     </div>

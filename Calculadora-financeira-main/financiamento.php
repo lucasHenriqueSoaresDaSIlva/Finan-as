@@ -51,7 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <?php include("header.php"); ?>
+    <div class="header">
+        <a href="index.php" class="logo-link">
+            <img src="logo.png" class="logo" alt="Logo Educação Financeira SESI-SENAI" />
+        </a>
+        <nav class="menu">
+            <a href="index.php"><i class="fa fa-home"></i> Home</a>
+            <a href="despesas.php"><i class="fa fa-credit-card"></i> Despesas</a>
+            <a href="financiamento.php"><i class="fa fa-calculator"></i> Simulador Financiamento</a>
+            <a href="investimentos.php"><i class="fa fa-chart-line"></i> Investimentos</a>
+            <a href="educacao.php"><i class="fa fa-book"></i> Educação</a>
+        </nav>
+    </div>
     <div class="simulator-container">
         <h2>Simulador de Financiamento</h2>
         <form class="simulator-form" method="post" autocomplete="off">

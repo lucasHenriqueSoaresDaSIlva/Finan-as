@@ -43,9 +43,73 @@ $transacoes = $stmt->fetchAll();
     <title>Gerenciador de Despesas</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Container dos cards */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch; /* todos os cards com a mesma altura */
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            max-width: 1100px;
+        }
+
+        /* Card genérico */
+        .card {
+            flex: 1 1 300px; /* cresce igualmente */
+            max-width: 320px;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        /* Card total */
+        .card.total {
+            border-top: #fff;
+            color: #fff;
+        }
+        .card.total.positive {
+            background-color: #28a745; /* Verde */
+        }
+        .card.total.negative {
+            background-color: #dc3545; /* Vermelho */
+        }
+        .card.total .card-header,
+        .card.total .card-value {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Responsividade: empilha no celular */
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                max-width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <?php include("header.php"); ?>
+    <div class="header">
+        <a href="index.php" class="logo-link">
+            <img src="logo.png" class="logo" alt="Logo Educação Financeira SESI-SENAI" />
+        </a>
+        <nav class="menu">
+            <a href="index.php"><i class="fa fa-home"></i> Home</a>
+            <a href="despesas.php"><i class="fa fa-credit-card"></i> Despesas</a>
+            <a href="financiamento.php"><i class="fa fa-calculator"></i> Simulador Financiamento</a>
+            <a href="investimentos.php"><i class="fa fa-chart-line"></i> Investimentos</a>
+            <a href="educacao.php"><i class="fa fa-book"></i> Educação</a>
+        </nav>
+    </div>
     <div class="cards-container">
         <div class="card income">
             <div class="card-header">Entradas <i class="fa fa-arrow-up"></i></div>
@@ -55,9 +119,11 @@ $transacoes = $stmt->fetchAll();
             <div class="card-header">Saídas <i class="fa fa-arrow-down"></i></div>
             <div class="card-value">-R$ <?=number_format(abs($saidas),2,",",".")?></div>
         </div>
-        <div class="card total">
+        <div class="card total <?=($total>=0?'positive':'negative')?>">
             <div class="card-header">Total <i class="fa fa-dollar-sign"></i></div>
-            <div class="card-value"><?=($total<0?"-":"")?>R$ <?=number_format(abs($total),2,",",".")?></div>
+            <div class="card-value">
+                <?=($total<0?"-":"")?>R$ <?=number_format(abs($total),2,",",".")?>
+            </div>
         </div>
     </div>
     <div class="container" style="max-width:1000px;margin:0 auto;">
@@ -105,8 +171,5 @@ $transacoes = $stmt->fetchAll();
         </table>
     </div>
     <?php include("footer.php"); ?>
-    <script>
-    // Show/hide transaction form
-    </script>
 </body>
 </html>

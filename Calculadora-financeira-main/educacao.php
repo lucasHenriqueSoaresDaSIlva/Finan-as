@@ -31,7 +31,7 @@ $conteudos = [
         "titulo" => "Dica rápida: Juros abusivos",
         "descricao" => "Fique atento a taxas muito acima das praticadas pelo mercado. Pesquise e compare antes de aceitar qualquer proposta de empréstimo.",
         "tipo" => "artigo",
-        "url" => "https://www.serasa.com.br/creditos/juros-abusivos/"
+        "url" => "https://www.spcbrasil.com.br/blog/juros-abusivos/"
     ]
 ];
 ?>
@@ -62,10 +62,22 @@ $conteudos = [
     </style>
 </head>
 <body>
-    <?php include("header.php"); ?>
+<div class="header">
+        <a href="index.php" class="logo-link">
+            <img src="logo.png" class="logo" alt="Logo Educação Financeira SESI-SENAI" />
+        </a>
+        <nav class="menu">
+            <a href="index.php"><i class="fa fa-home"></i> Home</a>
+            <a href="despesas.php"><i class="fa fa-credit-card"></i> Despesas</a>
+            <a href="financiamento.php"><i class="fa fa-calculator"></i> Simulador Financiamento</a>
+            <a href="investimentos.php"><i class="fa fa-chart-line"></i> Investimentos</a>
+            <a href="educacao.php"><i class="fa fa-book"></i> Educação</a>
+        </nav>
+    </div>
     <div class="container" style="max-width:900px;margin:30px auto 80px auto;background:#fff;border-radius:13px;box-shadow:0 4px 12px rgba(0,0,0,0.07);padding:32px;">
         <div class="educa-titulo">
             Educação sobre Dívidas, Juros e Investimentos
+            
         </div>
         <div class="educa-sub">
             Aprenda como tomar melhores decisões financeiras e conheça estratégias para investir, lidar com dívidas e entender os juros.
@@ -85,7 +97,9 @@ $conteudos = [
             <i class="fa fa-lightbulb"></i>
             <span>Pratique educação financeira diariamente para conquistar sua liberdade e tranquilidade!</span>
         </div>
+        
     </div>
     <?php include("footer.php"); ?>
+    
 </body>
 </html>
